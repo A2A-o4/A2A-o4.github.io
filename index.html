@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ayoub Assim Portfolio</title>
+<meta name="description" content="Ayoub Assim, ingénieur Data & IA. Stage de fin d'études de 6 mois à partir d'avril 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,600;12..96,800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: left-aligned editorial column on a 1120px grid. Mono readouts carry every number.
+     Projects are experiment sheets: problem, approach, pipeline, results rail. */
+  --bg:#F2F4F8;
+  --surface:#FFFFFF;
+  --ink:#131C33;
+  --muted:#566079;
+  --line:#D5DBE8;
+  /* two colours only: the accent is the ink (the colour of the name) */
+  --accent:var(--ink);
+  --accent-soft:color-mix(in srgb,var(--ink) 14%,transparent);
+  --on-accent:var(--bg);
+  --font-display:'Bricolage Grotesque','Arial Narrow',system-ui,sans-serif;
+  --font-body:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --wrap:1120px;
+  --gutter:clamp(18px,4vw,40px);
+  --radius:14px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1426;--surface:#151E36;--ink:#E8ECF5;--muted:#9BA6C0;--line:#27324F;
+        color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1426;--surface:#151E36;--ink:#E8ECF5;--muted:#9BA6C0;--line:#27324F;
+    color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:110px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+h1,h2,h3{text-wrap:balance}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter)}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;padding-top:12px;padding-bottom:12px}
+.brand{font-family:var(--font-display);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;text-decoration:none;margin-right:auto}
+.brand span{font-weight:300}
+.links{display:flex;gap:4px 18px;font-size:.92rem;overflow-x:auto;scrollbar-width:none}
+.links::-webkit-scrollbar{display:none}
+.links a{text-decoration:none;color:var(--muted);white-space:nowrap;padding:4px 0}
+.links a:hover{color:var(--ink)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:2px;background:var(--surface)}
+.lang button{font:500 .78rem var(--font-mono);border:0;background:none;color:var(--muted);padding:5px 11px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+@media (max-width:760px){
+  .links{order:3;width:100%;gap:4px 14px;font-size:.86rem}
+  .avail{font-size:.7rem;padding:6px 12px}
+}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(36px,7vw,84px) 0 clamp(28px,5vw,56px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(24px,5vw,64px);align-items:end}
+.avail{display:inline-flex;align-items:center;gap:10px;font:500 .8rem var(--font-mono);color:var(--muted);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px}
+.avail i{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.name{font-family:var(--font-display);font-size:clamp(3.6rem,13.5vw,9.5rem);line-height:.86;letter-spacing:-.045em;margin-top:22px;text-transform:uppercase}
+.name b{font-weight:800;display:block}
+.name span{font-weight:300;display:block}
+.role{font:500 .86rem var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-top:26px}
+.lead{font-size:clamp(1.1rem,2.1vw,1.38rem);line-height:1.5;max-width:34em;margin-top:14px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--font-body);text-decoration:none;border-radius:999px;padding:12px 22px;border:1px solid var(--ink);cursor:pointer;background:none;color:var(--ink);transition:transform .15s ease,background .15s ease,color .15s ease}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.portrait{width:clamp(150px,22vw,250px);aspect-ratio:1;border-radius:22px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:10px 10px 0 var(--accent)}
+.portrait img{width:100%;height:100%;object-fit:cover}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:clamp(32px,5vw,56px);border-top:1px solid var(--ink)}
+.stats div{padding:16px 16px 0 0}
+.stats dt{font-family:var(--font-mono);font-weight:700;font-size:clamp(2rem,5vw,3.2rem);line-height:1;font-variant-numeric:tabular-nums}
+.stats dd{color:var(--muted);font-size:.92rem;margin-top:6px}
+@media (max-width:640px){
+  .hero-grid{grid-template-columns:1fr}
+  .portrait{order:-1;width:132px;border-radius:18px;box-shadow:7px 7px 0 var(--accent)}
+}
+
+/* ---------- ticker ---------- */
+.ticker{border-block:1px solid var(--ink);background:var(--ink);color:var(--bg);overflow:hidden}
+.ticker-track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.ticker-set{display:flex;flex-shrink:0}
+.tick{display:flex;align-items:baseline;gap:10px;padding:14px 28px;white-space:nowrap;border-right:1px solid color-mix(in srgb,var(--bg) 22%,transparent)}
+.tick b{font:700 1.15rem var(--font-mono);font-variant-numeric:tabular-nums}
+.tick i{font:400 .78rem var(--font-mono);font-style:normal;opacity:.72}
+@keyframes slide{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .ticker-track{animation:none;width:auto;flex-wrap:wrap}
+  .ticker-set{flex-wrap:wrap}
+  .ticker-set[aria-hidden="true"]{display:none}
+  .btn{transition:none}
+}
+
+/* ---------- sections ---------- */
+section{padding:clamp(48px,8vw,96px) 0}
+.sec-head{display:grid;gap:10px;margin-bottom:clamp(24px,4vw,44px);max-width:46rem}
+.eyebrow{font:500 .78rem var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.sec-head h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,5.2vw,3.5rem);line-height:1;letter-spacing:-.035em}
+.sec-head p{color:var(--muted);max-width:38em}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips li{font:400 .76rem var(--font-mono);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted);background:var(--bg)}
+
+/* build cards */
+.build{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden}
+.build article{padding:24px 22px 26px;display:grid;gap:12px;align-content:start;border-left:1px solid var(--line)}
+.build article:first-child{border-left:0}
+.build h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;line-height:1.15;letter-spacing:-.02em}
+.build p{color:var(--muted);font-size:.95rem}
+@media (max-width:920px){
+  .build{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .build article:nth-child(odd){border-left:0}
+  .build article:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:540px){
+  .build{grid-template-columns:1fr}
+  .build article{border-left:0}
+  .build article + article{border-top:1px solid var(--line)}
+}
+
+/* projects */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.filters button{font:500 .82rem var(--font-mono);border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:999px;padding:7px 14px;cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.sheets{display:grid;gap:20px}
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.sheet[hidden]{display:none}
+.sheet-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;padding:12px 22px;border-bottom:1px solid var(--line);font:500 .76rem var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sheet-top span:first-child{color:var(--accent)}
+.sheet-body{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.sheet-main{padding:24px 22px;display:grid;gap:18px;align-content:start}
+.sheet h3{font-family:var(--font-display);font-weight:800;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.05;letter-spacing:-.03em}
+.pair{display:grid;gap:14px}
+.pair h4{margin:0 0 2px;font:500 .74rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pair p{max-width:36em}
+.flow{display:flex;flex-wrap:wrap;gap:8px 0;align-items:center}
+.flow li{display:flex;align-items:center;font:500 .78rem var(--font-mono)}
+.flow li span{border:1px solid var(--ink);border-radius:6px;padding:5px 9px;background:var(--bg)}
+.flow li:not(:last-child)::after{content:"→";color:var(--accent);padding:0 7px;font-weight:700}
+.rail{padding:24px 22px;border-left:1px solid var(--line);background:color-mix(in srgb,var(--bg) 55%,var(--surface));display:grid;gap:18px;align-content:start}
+.rail h4{margin:0;font:500 .74rem var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.metrics{display:grid;gap:14px}
+.metrics div{display:grid;gap:2px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+.metrics div:last-child{border-bottom:0;padding-bottom:0}
+.metrics dd{font:700 clamp(1.8rem,4vw,2.5rem)/1 var(--font-mono);font-variant-numeric:tabular-nums;letter-spacing:-.03em;order:-1}
+.metrics dt{color:var(--muted);font-size:.9rem;line-height:1.4}
+.bars{display:grid;gap:10px}
+.bar{display:grid;gap:4px;font-size:.84rem;color:var(--muted)}
+.bar i{display:block;height:12px;border-radius:3px;background:var(--line)}
+.bar i.hot{background:var(--accent)}
+@media (max-width:760px){
+  .sheet-body{grid-template-columns:1fr}
+  .rail{border-left:0;border-top:1px solid var(--line)}
+  .metrics{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px}
+  .metrics div{border-bottom:0;padding-bottom:0}
+}
+
+/* experience */
+.xp{border-top:1px solid var(--ink)}
+.xp article{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:8px 40px;padding:28px 0;border-bottom:1px solid var(--line)}
+.xp .when{font:500 .84rem var(--font-mono);color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.xp .org{color:var(--muted);font-size:.95rem;margin-top:4px}
+.xp h3{font-family:var(--font-display);font-weight:600;font-size:1.45rem;line-height:1.15;letter-spacing:-.02em}
+.xp .what{margin-top:4px;font-weight:500}
+.xp ul.pts{margin:12px 0 14px;display:grid;gap:7px;max-width:40em}
+.xp ul.pts li{position:relative;padding-left:18px;color:var(--muted)}
+.xp ul.pts li::before{content:"";position:absolute;left:0;top:.68em;width:8px;height:2px;background:var(--accent)}
+@media (max-width:700px){.xp article{grid-template-columns:1fr}}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.skills div{padding:20px 24px 22px 0;border-bottom:1px solid var(--line);display:grid;gap:10px;align-content:start}
+.skills div:nth-child(even){padding-left:24px;border-left:1px solid var(--line)}
+.skills h3{font:600 1rem var(--font-body)}
+.skills .chips li{background:var(--surface)}
+.certs{margin-top:28px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.certs li{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:grid;gap:6px}
+.certs b{font-weight:600;line-height:1.25}
+.certs span{font:400 .76rem var(--font-mono);color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.sub{font:500 .78rem var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:40px}
+@media (max-width:860px){.certs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .skills{grid-template-columns:1fr}
+  .skills div,.skills div:nth-child(even){padding:18px 0 20px;border-left:0}
+}
+
+/* method */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;counter-reset:s}
+.steps li{counter-increment:s;border-top:3px solid var(--ink);padding-top:14px;display:grid;gap:6px;align-content:start}
+.steps li::before{content:"0" counter(s);font:700 .9rem var(--font-mono);color:var(--accent)}
+.steps h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:-.02em}
+.steps p{color:var(--muted);font-size:.95rem}
+@media (max-width:820px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.steps{grid-template-columns:1fr}}
+
+/* education + about */
+.edu{border-top:1px solid var(--ink)}
+.edu li{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:4px 40px;padding:20px 0;border-bottom:1px solid var(--line)}
+.edu .when{font:500 .84rem var(--font-mono);color:var(--accent)}
+.edu b{font-family:var(--font-display);font-weight:600;font-size:1.2rem;letter-spacing:-.015em;line-height:1.2;display:block}
+.edu span{color:var(--muted);font-size:.95rem}
+@media (max-width:700px){.edu li{grid-template-columns:1fr}}
+.about{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;display:grid;gap:12px;align-content:start}
+.card h3{font:500 .78rem var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.card p{max-width:38em}
+.card strong{font-family:var(--font-display);font-size:1.3rem;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.side{display:grid;gap:20px}
+.langs li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.langs li:last-child{border-bottom:0}
+.langs span{color:var(--muted);font:400 .82rem var(--font-mono)}
+@media (max-width:820px){.about{grid-template-columns:1fr}}
+
+/* contact */
+.contact{background:var(--ink);color:var(--bg);padding:clamp(56px,9vw,110px) 0 0}
+.contact .eyebrow{color:var(--bg);opacity:.7}
+.contact h2{font-family:var(--font-display);font-weight:800;font-size:clamp(2.3rem,7.5vw,5.4rem);line-height:.95;letter-spacing:-.04em;margin-top:12px;max-width:14em}
+.contact .lead{color:var(--bg);opacity:.82}
+.contact .btn{border-color:var(--bg);color:var(--bg)}
+.contact .btn.primary{background:var(--bg);border-color:var(--bg);color:var(--ink)}
+.contact :focus-visible{outline-color:var(--bg)}
+.reach{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:0;margin-top:44px;border-top:1px solid color-mix(in srgb,var(--bg) 30%,transparent)}
+.reach div{padding:18px 18px 18px 0;display:grid;gap:4px}
+.reach dt{font:500 .74rem var(--font-mono);letter-spacing:.14em;text-transform:uppercase;opacity:.62}
+.reach dd{overflow-wrap:anywhere}
+.reach a{text-decoration-color:color-mix(in srgb,var(--bg) 40%,transparent);text-underline-offset:4px}
+.reach a:hover{text-decoration-color:var(--bg)}
+footer{margin-top:40px;padding:18px 0 26px;border-top:1px solid color-mix(in srgb,var(--bg) 30%,transparent);font:400 .78rem var(--font-mono);opacity:.62;display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">AYOUB <span>ASSIM</span></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#projets" data-en="Work">Projets</a>
+      <a href="#experience" data-en="Experience">Expérience</a>
+      <a href="#competences" data-en="Skills">Compétences</a>
+      <a href="#formation" data-en="Education">Formation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="lang" role="group" aria-label="Langue / Language">
+      <button type="button" id="lang-fr" aria-pressed="true">FR</button>
+      <button type="button" id="lang-en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="avail"><i></i><span data-en="Available from April 2027 · 6-month internship">Disponible dès avril 2027 · stage de 6 mois</span></p>
+          <h1 class="name"><b>Ayoub</b><span>Assim</span></h1>
+          <p class="role" data-en="Data &amp; AI engineer">Ingénieur Data &amp; IA</p>
+          <p class="lead" data-en="Arts et Métiers engineer in computer science and artificial intelligence, now in a Master 2 at Université de Lorraine. I build reliable solutions that make data useful to business teams.">Ingénieur Arts et Métiers en informatique et intelligence artificielle, actuellement en Master 2 à l'Université de Lorraine. Je conçois des solutions fiables qui rendent les données utiles aux équipes métier.</p>
+          <div class="cta">
+            <a class="btn primary" href="#projets" data-en="See my work">Voir mes projets</a>
+            <a class="btn" href="#contact" data-en="Contact me">Me contacter</a>
+            <a class="btn" href="https://github.com/A2A-o4" target="_blank" rel="noopener">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="portrait"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUEBAQEAwUEBAQGBQUGCA0ICAcHCBALDAkNExAUExIQEhIUFx0ZFBYcFhISGiMaHB4fISEhFBkkJyQgJh0gISD/2wBDAQUGBggHCA8ICA8gFRIVICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD/wAARCAFoAWgDASIAAhEBAxEB/8QAHQABAAAHAQEAAAAAAAAAAAAAAAECAwQFBgcICf/EAEUQAAEDAwMCBAQEBAMECAcAAAEAAgMEBREGEiExQQcTUWEiMnGBCBSRoRUjQrEzUmIWgsHRFyRDU3Lh8PElRXOSsrPC/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAECAwQFBv/EACcRAQACAgICAgMAAgMBAAAAAAABAgMRITEEEhMiMkFRFCMFM2Fx/9oADAMBAAIRAxEAPwD2WiIgIiICIiAiIgIiICIoFAzz0REQEREBERAREQEREBERAREQEREBERATKIgjlFBRQEREBERAREQEREBERAREQEREBERAREQEREBQymUQEREBERAREQEREBFBM8oIoiICIiAiIgIiICIiAiIgJlEQRyigo5QEREBERAREQEREBERAREQEREBERAUMplEBERAREQEREBFA9CsLqLU9i0nZpbxqG609uoohkyzPDd3HRo6uPsASo2My44x7rWtQa90lpacQ3++0tveWeZiV+CB7jt1XkDxE/Ezq3U8ktv0pI/TtrDiBPESKmVvqXf0Z9AuF1FbNVSOnqqiWokd80sshe533Jym06e871+JLwwtsMgo7zJdqkZDYKKFxJPqXOw0D7rSqb8VVGC7z7OJg93wh0gh2AdRzncf0XjOWb4Dsfx1IPVUmzFpyA4+5PVIOHu62/iq0DUNkbdaK52yRhHIiE7CPXcw8cc8hda0vrnSms6UVGmb/AEd1Zt3EQyDzGj/Uw/EPuF8uWvfgAYye+cYWUs11q7TWiupK2SkqMYZUQPcyRo9A5pBx7HIUj6rE89f1UC7A+q+eFN+IPxWt8IgpNZyOiYNobPSxSkAdPicM/qsfV+N/iVc2OZc9SzV7Sd2yaJjWN+jWgD+6jaH0alqI4IXTTyshjYPifI4BrfqTwtJrfF/w7oas0supqeSQO2uNOx8zWH0c5jSB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" alt="Portrait d'Ayoub Assim" width="360" height="360"></div>
+      </div>
+      <dl class="stats">
+        <div><dt>3</dt><dd data-en="AI internships">stages en IA</dd></div>
+        <div><dt>4</dt><dd data-en="ML and RL projects">projets ML et RL</dd></div>
+        <div><dt>4</dt><dd data-en="certifications">certifications</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="ticker" aria-label="Résultats clés">
+    <div class="ticker-track">
+      <div class="ticker-set">
+        <span class="tick"><b data-en="0.85">0,85</b><i data-en="ROC-AUC · churn prediction">ROC-AUC · prédiction du churn</i></span>
+        <span class="tick"><b data-en="≈ −30%">≈ −30 %</b><i data-en="delay · adaptive traffic lights">de retard · feux adaptatifs</i></span>
+        <span class="tick"><b data-en="0.95">0,95</b><i data-en="F1 · fake news detection">F1 · détection de fake news</i></span>
+        <span class="tick"><b data-en="1.21">1,21</b><i data-en="Sharpe · PPO trading agent">Sharpe · agent de trading PPO</i></span>
+        <span class="tick"><b data-en="7,043">7 043</b><i data-en="customer records processed">dossiers clients traités</i></span>
+        <span class="tick"><b>3</b><i data-en="RL agents trained">agents RL entraînés</i></span>
+      </div>
+      <div class="ticker-set" aria-hidden="true">
+        <span class="tick"><b data-en="0.85">0,85</b><i data-en="ROC-AUC · churn prediction">ROC-AUC · prédiction du churn</i></span>
+        <span class="tick"><b data-en="≈ −30%">≈ −30 %</b><i data-en="delay · adaptive traffic lights">de retard · feux adaptatifs</i></span>
+        <span class="tick"><b data-en="0.95">0,95</b><i data-en="F1 · fake news detection">F1 · détection de fake news</i></span>
+        <span class="tick"><b data-en="1.21">1,21</b><i data-en="Sharpe · PPO trading agent">Sharpe · agent de trading PPO</i></span>
+        <span class="tick"><b data-en="7,043">7 043</b><i data-en="customer records processed">dossiers clients traités</i></span>
+        <span class="tick"><b>3</b><i data-en="RL agents trained">agents RL entraînés</i></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== What I build ===== -->
+  <section id="domaines">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="What I build">Ce que je construis</p>
+        <h2 data-en="From raw data to a model in production">De la donnée brute au modèle en service</h2>
+      </div>
+      <div class="build">
+        <article>
+          <h3 data-en="Generative AI &amp; NLP">IA générative &amp; NLP</h3>
+          <p data-en="RAG chatbots on unstructured data, document summarisation and question answering, LLM comparison.">Chatbots RAG sur données non structurées, résumé et questions-réponses sur documents, comparaison de LLM.</p>
+          <ul class="chips"><li>LLM</li><li>RAG</li><li>LangChain</li><li>MCP</li></ul>
+        </article>
+        <article>
+          <h3>Machine Learning</h3>
+          <p data-en="End-to-end classification models: data preparation, feature engineering, cross-validation.">Modèles de classification de bout en bout : préparation des données, feature engineering, validation croisée.</p>
+          <ul class="chips"><li>scikit-learn</li><li>XGBoost</li><li>PyTorch</li><li>TensorFlow</li></ul>
+        </article>
+        <article>
+          <h3 data-en="Reinforcement learning">Apprentissage par renforcement</h3>
+          <p data-en="Agents trained in simulation and evaluated against baselines or on unseen data.">Agents entraînés en simulation, évalués face à des références ou sur des données jamais vues.</p>
+          <ul class="chips"><li>DQN</li><li>PPO</li><li>Stable-Baselines3</li><li>Gymnasium</li><li>SUMO</li></ul>
+        </article>
+        <article>
+          <h3 data-en="Data engineering &amp; deployment">Data Engineering &amp; déploiement</h3>
+          <p data-en="ETL/ELT pipelines, data quality and modelling, APIs and containerised models.">Pipelines ETL/ELT, qualité et modélisation des données, API et modèles conteneurisés.</p>
+          <ul class="chips"><li>Spark</li><li>SQL</li><li>FastAPI</li><li>Docker</li><li>AWS · Azure · GCP</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projets" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Selected work">Projets</p>
+        <h2 data-en="Four projects, measured">Quatre projets, mesurés</h2>
+        <p data-en="Each sheet gives the problem, the approach, the pipeline and the results obtained.">Chaque fiche donne le problème, l'approche, le pipeline et les résultats obtenus.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrer les projets">
+        <button type="button" data-filter="all" aria-pressed="true" data-en="All">Tous</button>
+        <button type="button" data-filter="ml" aria-pressed="false">Machine Learning</button>
+        <button type="button" data-filter="rl" aria-pressed="false">Deep RL</button>
+        <button type="button" data-filter="nlp" aria-pressed="false">NLP</button>
+      </div>
+
+      <div class="sheets">
+        <article class="sheet" data-cat="ml">
+          <div class="sheet-top"><span>Machine Learning</span><span>Python · Pandas · scikit-learn · XGBoost</span></div>
+          <div class="sheet-body">
+            <div class="sheet-main">
+              <h3 data-en="Customer churn prediction">Prédiction du churn client</h3>
+              <div class="pair">
+                <div><h4 data-en="Problem">Problème</h4><p data-en="Spot the customers most likely to leave, from 7,043 customer records.">Repérer les clients les plus susceptibles de partir, à partir de 7 043 dossiers clients.</p></div>
+                <div><h4 data-en="Approach">Approche</h4><p data-en="Data cleaning and transformation, feature engineering, then three models compared with stratified cross-validation.">Nettoyage et transformation des données, feature engineering, puis trois modèles comparés en validation croisée stratifiée.</p></div>
+              </div>
+              <ol class="flow">
+                <li><span data-en="7,043 records">7 043 dossiers</span></li>
+                <li><span data-en="Cleaning">Nettoyage</span></li>
+                <li><span>Feature engineering</span></li>
+                <li><span data-en="3 models · stratified CV">3 modèles · CV stratifiée</span></li>
+                <li><span data-en="Risk ranking">Classement par risque</span></li>
+              </ol>
+            </div>
+            <div class="rail">
+              <h4 data-en="Results">Résultats</h4>
+              <dl class="metrics">
+                <div><dt>ROC-AUC</dt><dd data-en="0.85">0,85</dd></div>
+                <div><dt data-en="Recall">Rappel</dt><dd data-en="0.80">0,80</dd></div>
+              </dl>
+              <div class="bars" role="img" aria-label="Les 20 % de clients les plus à risque regroupent 52 % des départs">
+                <div class="bar"><i style="width:20%"></i><span data-en="The 20% of customers most at risk">Les 20 % de clients les plus à risque</span></div>
+                <div class="bar"><i class="hot" style="width:52%"></i><span data-en="account for 52% of departures">regroupent 52 % des départs</span></div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="sheet" data-cat="rl">
+          <div class="sheet-top"><span>Deep RL</span><span>PyTorch · DQN · SUMO · pytest</span></div>
+          <div class="sheet-body">
+            <div class="sheet-main">
+              <h3 data-en="Adaptive traffic light control">Contrôle adaptatif des feux de circulation</h3>
+              <div class="pair">
+                <div><h4 data-en="Problem">Problème</h4><p data-en="Reduce delay at intersections compared with fixed-duration light plans.">Réduire le retard aux intersections par rapport à des plans de feux à durée fixe.</p></div>
+                <div><h4 data-en="Approach">Approche</h4><p data-en="A deep reinforcement learning agent (DQN) trained in the SUMO traffic simulator. Tested, reproducible code.">Un agent de Deep RL (DQN) entraîné dans le simulateur de trafic SUMO. Code testé et reproductible.</p></div>
+              </div>
+              <ol class="flow">
+                <li><span data-en="SUMO simulation">Simulation SUMO</span></li>
+                <li><span data-en="DQN agent">Agent DQN</span></li>
+                <li><span data-en="Light control">Pilotage des feux</span></li>
+                <li><span data-en="Comparison with fixed plans">Comparaison aux plans fixes</span></li>
+              </ol>
+            </div>
+            <div class="rail">
+              <h4 data-en="Results">Résultats</h4>
+              <dl class="metrics">
+                <div><dt data-en="less delay than the best fixed-duration plan">de retard en moins que le meilleur plan à durée fixe</dt><dd data-en="≈ 30%">≈ 30 %</dd></div>
+                <div><dt data-en="tests, reproducible runs">tests, exécutions reproductibles</dt><dd>pytest</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="sheet" data-cat="nlp">
+          <div class="sheet-top"><span>NLP</span><span data-en="TF-IDF · linear SVM">TF-IDF · SVM linéaire</span></div>
+          <div class="sheet-body">
+            <div class="sheet-main">
+              <h3 data-en="Fake news detection">Détection de fake news</h3>
+              <div class="pair">
+                <div><h4 data-en="Problem">Problème</h4><p data-en="Classify news articles as real or fake, then check the model on an external benchmark.">Classer des articles comme vrais ou faux, puis vérifier le modèle sur un benchmark externe.</p></div>
+                <div><h4 data-en="Approach">Approche</h4><p data-en="TF-IDF vectorisation and a linear SVM on 6,000 articles, a test on the LIAR benchmark, and an analysis of dataset bias.">Vectorisation TF-IDF et SVM linéaire sur 6 000 articles, test sur le benchmark LIAR et analyse des biais du jeu de données.</p></div>
+              </div>
+              <ol class="flow">
+                <li><span data-en="6,000 articles">6 000 articles</span></li>
+                <li><span>TF-IDF</span></li>
+                <li><span data-en="Linear SVM">SVM linéaire</span></li>
+                <li><span data-en="LIAR test">Test LIAR</span></li>
+                <li><span data-en="Bias analysis">Analyse des biais</span></li>
+              </ol>
+            </div>
+            <div class="rail">
+              <h4 data-en="Results">Résultats</h4>
+              <dl class="metrics">
+                <div><dt data-en="accuracy on 6,000 articles">d'exactitude sur 6 000 articles</dt><dd data-en="95%">95 %</dd></div>
+                <div><dt>F1</dt><dd data-en="0.95">0,95</dd></div>
+                <div><dt data-en="on the LIAR benchmark">sur le benchmark LIAR</dt><dd data-en="60%">60 %</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+
+        <article class="sheet" data-cat="rl">
+          <div class="sheet-top"><span>Deep RL</span><span>Python · Stable-Baselines3 · Gymnasium</span></div>
+          <div class="sheet-body">
+            <div class="sheet-main">
+              <h3 data-en="RL trading agents">Agents de trading par RL</h3>
+              <div class="pair">
+                <div><h4 data-en="Problem">Problème</h4><p data-en="Train agents to trade a stock, then judge them on years they have never seen.">Entraîner des agents à trader une action, puis les juger sur des années qu'ils n'ont jamais vues.</p></div>
+                <div><h4 data-en="Approach">Approche</h4><p data-en="Custom trading environments and three agents (PPO, DQN, Rainbow DQN) trained on AAPL from 2013 to 2022.">Environnements de trading sur mesure et trois agents (PPO, DQN, Rainbow DQN) entraînés sur AAPL de 2013 à 2022.</p></div>
+              </div>
+              <ol class="flow">
+                <li><span>AAPL 2013-2022</span></li>
+                <li><span data-en="Custom environments">Environnements sur mesure</span></li>
+                <li><span data-en="3 agents">3 agents</span></li>
+                <li><span data-en="2023-2024 test">Test 2023-2024</span></li>
+              </ol>
+            </div>
+            <div class="rail">
+              <h4 data-en="Results · PPO on unseen 2023-2024 data">Résultats · PPO sur 2023-2024, jamais vues</h4>
+              <dl class="metrics">
+                <div><dt data-en="return">de rendement</dt><dd data-en="+12.4%">+12,4 %</dd></div>
+                <div><dt data-en="Sharpe ratio">ratio de Sharpe</dt><dd data-en="1.21">1,21</dd></div>
+                <div><dt data-en="maximum drawdown">de drawdown maximal</dt><dd data-en="3%">3 %</dd></div>
+              </dl>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section id="experience" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Experience">Expérience</p>
+        <h2 data-en="Three internships in applied AI">Trois stages en IA appliquée</h2>
+      </div>
+      <div class="xp">
+        <article>
+          <div>
+            <p class="when" data-en="Jan – Aug 2026">Janv. – août 2026</p>
+            <p class="org">Laboratoire SARL</p>
+          </div>
+          <div>
+            <h3 data-en="Data &amp; AI intern">Stage Data &amp; IA</h3>
+            <p class="what" data-en="AI reading assistant for children aged 5 to 12">Assistant de lecture IA pour les enfants de 5 à 12 ans</p>
+            <ul class="pts">
+              <li data-en="Framed the business need as a classification and text/speech alignment problem; prepared the text and voice data.">Formalisation du besoin métier en problème de classification et d'alignement texte/parole ; préparation des données textuelles et vocales.</li>
+              <li data-en="Benchmarked several language models against defined metrics.">Benchmark de plusieurs modèles de langage selon des métriques définies.</li>
+              <li data-en="Designed a reading scoring and progress tracking system, exposed through a secured API.">Conception d'un système de notation de la lecture et de suivi de progression, exposé via une API sécurisée.</li>
+            </ul>
+            <ul class="chips"><li>NLP</li><li data-en="Text/speech alignment">Alignement texte/parole</li><li data-en="Model benchmark">Benchmark de modèles</li><li data-en="Secured API">API sécurisée</li></ul>
+          </div>
+        </article>
+        <article>
+          <div>
+            <p class="when" data-en="Jun – Aug 2025">Juin – août 2025</p>
+            <p class="org" data-en="ONDA Airport">Aéroport ONDA</p>
+          </div>
+          <div>
+            <h3 data-en="AI engineering intern">Stage Ingénieur IA</h3>
+            <p class="what" data-en="Multimodal generative AI (MCP, RAG)">IA générative multimodale (MCP, RAG)</p>
+            <ul class="pts">
+              <li data-en="Built a RAG chatbot on unstructured data (PDFs, emails).">Développement d'un chatbot RAG sur des données non structurées (PDF, e-mails).</li>
+              <li data-en="Compared several LLMs on the same sources to select the most reliable one.">Comparaison de plusieurs LLM sur les mêmes sources pour sélectionner le plus fiable.</li>
+              <li data-en="Deployed several language models in a containerised architecture (Docker).">Déploiement de plusieurs modèles de langage dans une architecture conteneurisée (Docker).</li>
+            </ul>
+            <ul class="chips"><li>RAG</li><li>MCP</li><li>LLM</li><li>Docker</li></ul>
+          </div>
+        </article>
+        <article>
+          <div>
+            <p class="when" data-en="May – Jul 2024">Mai – juil. 2024</p>
+            <p class="org" data-en="ONDA Airport">Aéroport ONDA</p>
+          </div>
+          <div>
+            <h3 data-en="AI engineering intern">Stage Ingénieur IA</h3>
+            <p class="what" data-en="NLP tool for PDF summarisation and question answering">Outil NLP de résumé de PDF et de questions-réponses</p>
+            <ul class="pts">
+              <li data-en="Benchmarked models on real documents, selected the best one and deployed it locally, with an interface for business users.">Benchmark de modèles sur des documents réels, sélection et déploiement local du meilleur, avec une interface pour les utilisateurs métier.</li>
+            </ul>
+            <ul class="chips"><li>NLP</li><li data-en="Summarisation">Résumé</li><li data-en="Question answering">Questions-réponses</li><li data-en="Local deployment">Déploiement local</li></ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Skills ===== -->
+  <section id="competences" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Skills">Compétences</p>
+        <h2 data-en="The toolbox">La boîte à outils</h2>
+      </div>
+      <div class="skills">
+        <div><h3 data-en="Data Science &amp; AI">Data Science &amp; IA</h3><ul class="chips"><li>Machine Learning</li><li>Deep Learning</li><li data-en="Data mining">Fouille de données</li><li data-en="Statistics">Statistiques</li><li>Big Data</li><li>NLP</li><li>LLM</li><li>RAG</li><li>LangChain</li><li data-en="Reinforcement learning">Apprentissage par renforcement</li><li>scikit-learn</li><li>XGBoost</li><li>PyTorch</li><li>TensorFlow</li></ul></div>
+        <div><h3>Data Engineering</h3><ul class="chips"><li>Spark</li><li>Pandas</li><li>NumPy</li><li>ETL/ELT</li><li data-en="Data pipelines">Pipelines de données</li><li data-en="Data quality">Qualité des données</li><li>Feature engineering</li><li data-en="Data modelling">Modélisation de données</li><li>Data Warehouse</li></ul></div>
+        <div><h3 data-en="Languages">Langages</h3><ul class="chips"><li>Python</li><li>SQL</li><li>Java</li><li>JEE</li></ul></div>
+        <div><h3 data-en="Development">Développement</h3><ul class="chips"><li>FastAPI</li><li>Flask</li><li>Spring Boot</li><li>Laravel</li><li>React</li><li>REST API</li><li>Microservices</li><li>OpenViBE</li></ul></div>
+        <div><h3 data-en="Databases">Bases de données</h3><ul class="chips"><li>PostgreSQL</li><li>MySQL</li><li>MongoDB</li><li>BigQuery</li><li>SQL</li><li>NoSQL</li></ul></div>
+        <div><h3>Cloud &amp; DevOps</h3><ul class="chips"><li>AWS</li><li>Azure</li><li>GCP</li><li>Docker</li><li>Git/GitHub</li><li>Linux</li><li>Windows</li></ul></div>
+        <div><h3>Business Intelligence</h3><ul class="chips"><li>Power BI</li><li>Tableau</li><li>Excel</li><li>PowerPoint</li></ul></div>
+        <div><h3 data-en="Project management">Gestion de projet</h3><ul class="chips"><li>Agile</li><li>Scrum</li><li>SFPC</li><li>Jira</li><li>UML</li><li>BPMN</li></ul></div>
+        <div><h3 data-en="Cognition &amp; AI ethics">Cognition &amp; éthique de l'IA</h3><ul class="chips"><li data-en="Brain-computer interfaces">Interfaces cerveau-ordinateur</li><li data-en="Data and AI ethics">Éthique des données et de l'IA</li><li data-en="AI development lifecycle">Cycle de développement IA</li></ul></div>
+        <div><h3>Soft skills</h3><ul class="chips"><li data-en="Adaptability">Capacité d'adaptation</li><li data-en="Autonomy">Autonomie</li><li data-en="Analytical mindset">Esprit d'analyse</li><li data-en="Team spirit">Esprit d'équipe</li><li data-en="Drive">Dynamisme</li></ul></div>
+      </div>
+
+      <p class="sub">Certifications</p>
+      <ul class="certs" style="margin-top:14px">
+        <li><b>Associate Data Engineer</b><span>DataCamp</span></li>
+        <li><b>Generative AI Professional</b><span>Oracle</span></li>
+        <li><b>AI Vector Search</b><span>Oracle</span></li>
+        <li><b>AI Foundations</b><span>Oracle</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Method ===== -->
+  <section id="methode" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Process">Méthode</p>
+        <h2 data-en="How I work">Comment je travaille</h2>
+      </div>
+      <ol class="steps">
+        <li><h3 data-en="Frame">Formaliser</h3><p data-en="Turn the business need into a clear data problem.">Traduire le besoin métier en problème de données clair.</p></li>
+        <li><h3 data-en="Prepare">Préparer</h3><p data-en="Clean, transform and structure the data.">Nettoyer, transformer et structurer les données.</p></li>
+        <li><h3 data-en="Compare">Comparer</h3><p data-en="Benchmark several models on the same data, against defined metrics.">Évaluer plusieurs modèles sur les mêmes données, selon des métriques définies.</p></li>
+        <li><h3 data-en="Deploy">Déployer</h3><p data-en="Ship the best model behind an API or an interface, in a container.">Mettre le meilleur modèle en service derrière une API ou une interface, en conteneur.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== Education ===== -->
+  <section id="formation" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Education">Formation</p>
+        <h2 data-en="Engineering school, then a master's">École d'ingénieurs, puis master</h2>
+      </div>
+      <ul class="edu">
+        <li><p class="when">2026 – 2027</p><div><b data-en="M2 Human-Centered Artificial Intelligence">M2 Intelligence Artificielle Centrée Humain</b><span>IDMC, Université de Lorraine, Nancy</span></div></li>
+        <li><p class="when">2023 – 2026</p><div><b data-en="Engineering degree in Computer Science and Artificial Intelligence">Diplôme d'ingénieur en Informatique et Intelligence Artificielle</b><span>Arts et Métiers</span></div></li>
+        <li><p class="when">2021 – 2023</p><div><b data-en="Preparatory classes for the grandes écoles">Classes préparatoires aux grandes écoles</b><span data-en="Mathematics and Physics">Mathématiques et Physique</span></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== Beyond ===== -->
+  <section id="engagement" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-en="Beyond work">Engagement &amp; langues</p>
+        <h2 data-en="Outside the terminal">En dehors du terminal</h2>
+      </div>
+      <div class="about">
+        <div class="card">
+          <h3 data-en="Volunteering">Bénévolat</h3>
+          <strong data-en="Volunteer, JLM, Morocco">Bénévole, JLM, Maroc</strong>
+          <p data-en="Every year, the JLM board picks an underprivileged area of Morocco where we go to carry out renovation work and solidarity actions with the people who live there.">Chaque année, le bureau de la JLM sélectionne une zone défavorisée du Maroc où nous partons mener des chantiers de rénovation et des actions solidaires auprès des habitants.</p>
+        </div>
+        <div class="side">
+          <div class="card">
+            <h3 data-en="Languages">Langues</h3>
+            <ul class="langs">
+              <li><b data-en="French">Français</b><span data-en="Fluent">Courant</span></li>
+              <li><b data-en="English">Anglais</b><span data-en="Fluent">Courant</span></li>
+              <li><b data-en="Spanish">Espagnol</b><span data-en="Beginner">Débutant</span></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 data-en="Interests">Intérêts</h3>
+            <ul class="chips"><li>Football</li><li data-en="Swimming">Natation</li><li data-en="Data &amp; AI tech watch">Veille technologique Data &amp; IA</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Contact ===== -->
+  <div class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2 data-en="Looking for a Data &amp; AI intern for April 2027?">Un stagiaire Data &amp; IA pour avril 2027 ?</h2>
+      <p class="lead" data-en="I am looking for a 6-month end-of-studies internship, anywhere in France.">Je recherche un stage de fin d'études de 6 mois, partout en France.</p>
+      <div class="cta">
+        <a class="btn primary" href="mailto:ayoubassim2017@gmail.com" data-en="Write to me">M'écrire</a>
+        <button class="btn" type="button" id="copy" data-en="Copy email address">Copier l'adresse e-mail</button>
+      </div>
+      <dl class="reach">
+        <div><dt>E-mail</dt><dd><a href="mailto:ayoubassim2017@gmail.com">ayoubassim2017@gmail.com</a></dd></div>
+        <div><dt data-en="Phone">Téléphone</dt><dd><a href="tel:+33751469499">+33 7 51 46 94 99</a></dd></div>
+        <div><dt data-en="Location">Mobilité</dt><dd data-en="Mobile across France">Mobile France entière</dd></div>
+        <div><dt>GitHub</dt><dd><a href="https://github.com/A2A-o4" target="_blank" rel="noopener">A2A-o4</a></dd></div>
+        <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/assim-ayoub-815a29267" target="_blank" rel="noopener">Ayoub Assim</a></dd></div>
+      </dl>
+      <footer>
+        <span>© 2026 Ayoub Assim</span>
+        <span data-en="Data &amp; AI engineer · IDMC, Université de Lorraine">Ingénieur Data &amp; IA · IDMC, Université de Lorraine</span>
+      </footer>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-en]'));
+  nodes.forEach(function(n){ n.setAttribute('data-fr', n.textContent); });
+  var fr = document.getElementById('lang-fr'), en = document.getElementById('lang-en');
+  var copyBtn = document.getElementById('copy');
+  var lang = 'fr';
+
+  function setLang(l){
+    lang = l;
+    nodes.forEach(function(n){ n.textContent = n.getAttribute(l === 'en' ? 'data-en' : 'data-fr'); });
+    document.documentElement.lang = l;
+    fr.setAttribute('aria-pressed', String(l === 'fr'));
+    en.setAttribute('aria-pressed', String(l === 'en'));
+    try { localStorage.setItem('aa-lang', l); } catch (e) {}
+  }
+  fr.addEventListener('click', function(){ setLang('fr'); });
+  en.addEventListener('click', function(){ setLang('en'); });
+  try { if (localStorage.getItem('aa-lang') === 'en') setLang('en'); } catch (e) {}
+
+  // project filter
+  var filters = Array.prototype.slice.call(document.querySelectorAll('.filters button'));
+  var sheets = Array.prototype.slice.call(document.querySelectorAll('.sheet'));
+  filters.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.getAttribute('data-filter');
+      filters.forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      sheets.forEach(function(s){ s.hidden = !(f === 'all' || s.getAttribute('data-cat') === f); });
+    });
+  });
+
+  // copy email
+  copyBtn.addEventListener('click', function(){
+    var done = function(ok){
+      var msg = ok ? (lang === 'en' ? 'Address copied' : 'Adresse copiée')
+                   : 'ayoubassim2017@gmail.com';
+      copyBtn.textContent = msg;
+      setTimeout(function(){ copyBtn.textContent = copyBtn.getAttribute(lang === 'en' ? 'data-en' : 'data-fr'); }, 2200);
+    };
+    try {
+      navigator.clipboard.writeText('ayoubassim2017@gmail.com').then(function(){ done(true); }, function(){ done(false); });
+    } catch (e) { done(false); }
+  });
+})();
+</script>
+</body>
+</html>
